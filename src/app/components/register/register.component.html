@@ -1,0 +1,41 @@
+<div class="register-page">
+    <div class="register-div">Register Page</div>
+    <form class="common-form" autocomplete="off" [formGroup]="registerForm">
+        <div class="form-group">
+            <label for="email">First Name:</label>
+            <input type="text"  class="form-control" placeholder="First Name" [formControl]="registerForm.controls['firstName']" autocomplete="doNotAutoComplete" [ngClass]="{'error-border': registerForm.controls['firstName'].dirty && registerForm.controls['firstName'].invalid}" />
+            <div class="error" *ngIf="registerForm.controls['firstName'].dirty && registerForm.controls['firstName'].invalid">
+                <span *ngIf="registerForm.controls['firstName'].hasError('required')">*Please enter first name.</span>
+                <span *ngIf="registerForm.controls['firstName'].hasError('minlength') || registerForm.controls['firstName'].hasError('pattern')">*Please enter valid first name.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="pwd">Last Name:</label>
+            <input type="text" class="form-control" placeholder="Last Name" autocomplete="doNotAutoComplete" [formControl]="registerForm.controls['lastName']" [ngClass]="{'error-border': registerForm.controls['lastName'].dirty && registerForm.controls['lastName'].invalid}"/>
+            <div class="error" *ngIf="registerForm.controls['lastName'].dirty && registerForm.controls['lastName'].invalid">
+                <span *ngIf="registerForm.controls['lastName'].hasError('required')">*Please enter last name.</span>
+                <span *ngIf="registerForm.controls['lastName'].hasError('minlength') || registerForm.controls['lastName'].hasError('pattern')">*Please enter valid last name.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="pwd">Phone Number:</label>
+            <input type="text" class="form-control" placeholder="Phone Number" (keypress)="numberOnly($event)" [formControl]="registerForm.controls['phoneNumber']" autocomplete="doNotAutoComplete" [ngClass]="{'error-border': registerForm.controls['phoneNumber'].dirty && registerForm.controls['phoneNumber'].invalid}"/>
+            <div class="error" *ngIf="registerForm.controls['phoneNumber'].dirty && registerForm.controls['phoneNumber'].invalid">
+                <span *ngIf="registerForm.controls['phoneNumber'].hasError('required')">*Please enter phone number.</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="pwd">Country:</label>
+            <select class="form-control" [formControl]="registerForm.controls['country']" [ngClass]="{'error-border': registerForm.controls['country'].dirty && registerForm.controls['country'].invalid}">
+                <option value="">Select Country</option>
+                <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
+            </select>
+            <div class="error" *ngIf="registerForm.controls['country'].dirty && registerForm.controls['country'].invalid">
+                <span *ngIf="registerForm.controls['country'].hasError('required')">*Please select a country.</span>
+            </div>
+          </div>
+          <div class="btn-div">
+            <button type="button" class="btn btn-default" [disabled]="registerForm.invalid" (click)="register()">Submit</button>
+          </div>
+    </form>
+</div>
